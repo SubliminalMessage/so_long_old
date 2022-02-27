@@ -1,0 +1,5 @@
+Fix Leaks (idk where)
+Start creating window and shit
+Try what happens if you overlap two sprites
+try to create the scenario
+convert malloc() into ft_calloc() on map arrays, to ensure random memory doesn't fuck everything
