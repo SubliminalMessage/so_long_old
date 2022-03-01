@@ -17,11 +17,6 @@ typedef struct  s_map
     int n_obstacles;
     int n_exits;
     int player_pos;
-    int *enemies;
-    int *obstacles;
-    int *collectibles;
-    int *colls_picked;
-    int *exits;
     void *img_scen[9];
     void *img_rock[1];
     void *img_coll[2];
@@ -31,6 +26,7 @@ typedef struct  s_map
 
 }   t_map;
 
+void print_map_borders(t_map *map,  void *m, void *v);
 void	clean_exit(char *error, t_map *map);
 t_map   *init_map(void *mlx);
 t_map   *parse_map(char *file_path, void *mlx);

@@ -25,7 +25,8 @@ NAME		= so_long
 LIBFT		= $(LIBFT_PATH)/libft.a
 
 SRCS		=	main.c	\
-				map.c
+				map.c	\
+				images.c
 
 OBJS = $(SRCS:%.c=bin/%.o)
 

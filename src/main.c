@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dutch <dutch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:23:44 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/01 17:23:46 by dangonza         ###   ########.fr       */
+/*   Updated: 2022/03/01 23:48:53 by dutch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,6 @@ void	clean_exit(char *error, t_map *map)
 		printf("%s\n", error);
 	if (map != NULL)
 	{
-		if (map->enemies != NULL)
-			free(map->enemies);
-		if (map->obstacles != NULL)
-			free(map->obstacles);
-		if (map->collectibles != NULL)
-			free(map->collectibles);
-		if (map->colls_picked != NULL)
-			free(map->colls_picked);
-		if (map->exits != NULL)
-			free(map->exits);
 		free(map);
 	}
 	exit(0);
@@ -65,10 +55,11 @@ int main(int argc, char **argv)
 	printf("player_pos => %d\n", map->player_pos);
 	
 	//mlx_win = mlx_new_window(mlx, 42 * map->m_width, 42 * map->m_heigth, "Hello world!");
-	mlx_win = mlx_new_window(mlx, 42 * 3, 42 * 3, "Hello world!");
+	mlx_win = mlx_new_window(mlx, 42 * map->m_width,
+			42 * map->m_heigth, "So long no see...");
 
 	int size = 42;
-	void *background = mlx_xpm_file_to_image(mlx, "./assets/background.xpm", &size, &size);
+	void *background = mlx_xpm_file_to_image(mlx, "./assets/xpm/background.xpm", &size, &size);
 
 	mlx_put_image_to_window(mlx, mlx_win, background, 0, 0);
 	mlx_put_image_to_window(mlx, mlx_win, background, 0, 42);
@@ -80,7 +71,7 @@ int main(int argc, char **argv)
 	mlx_put_image_to_window(mlx, mlx_win, background, 84, 42);
 	mlx_put_image_to_window(mlx, mlx_win, background, 84, 84);
 
-	mlx_put_image_to_window(mlx, mlx_win, map->img_scen[0], 0, 0);
+	/*mlx_put_image_to_window(mlx, mlx_win, map->img_scen[0], 0, 0);
 	mlx_put_image_to_window(mlx, mlx_win, map->img_scen[1], 42, 0);
 	mlx_put_image_to_window(mlx, mlx_win, map->img_scen[2], 84, 0);
 
@@ -90,7 +81,9 @@ int main(int argc, char **argv)
 	
 	mlx_put_image_to_window(mlx, mlx_win, map->img_scen[6], 0, 84);
 	mlx_put_image_to_window(mlx, mlx_win, map->img_scen[7], 42, 84);
-	mlx_put_image_to_window(mlx, mlx_win, map->img_scen[8], 84, 84);
+	mlx_put_image_to_window(mlx, mlx_win, map->img_scen[8], 84, 84);*/
+
+	print_map_borders(map, mlx, mlx_win);
 
 	/*void	*img;
 	char	*relative_path = "./assets/obstacles/scenario/tile.xmp";

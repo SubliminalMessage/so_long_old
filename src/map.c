@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dutch <dutch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:23:27 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/01 17:23:38 by dangonza         ###   ########.fr       */
+/*   Updated: 2022/03/02 00:06:28 by dutch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,28 @@ void	*get_image(char *str, int *size, void *mlx)
 	return (mlx_xpm_file_to_image(mlx, str, size, size));
 }
 
+void	put_image(void *img, void *mlx, void *win, int x, int y)
+{
+	mlx_put_image_to_window(mlx, win, img, x, y);
+}
+
 void	map_setup_images(t_map *map, void *mlx)
 {
 	int size;
 
 	size = 42;
-	map->img_scen[0] = get_image("./assets/corner_tleft.xpm", &size, mlx);
-	map->img_scen[1] = get_image("./assets/side_top.xpm", &size, mlx);
-	map->img_scen[2] = get_image("./assets/corner_tright.xpm", &size, mlx);
-	map->img_scen[3] = get_image("./assets/side_left.xpm", &size, mlx);
-	map->img_scen[4] = get_image("./assets/tile.xpm", &size, mlx);
-	map->img_scen[5] = get_image("./assets/side_right.xpm", &size, mlx);
-	map->img_scen[6] = get_image("./assets/corner_dleft.xpm", &size, mlx);
-	map->img_scen[7] = get_image("./assets/side_down.xpm", &size, mlx);
-	map->img_scen[8] = get_image("./assets/corner_dright.xpm", &size, mlx);
+	map->img_scen[0] = get_image("./assets/xpm/corner_tleft.xpm", &size, mlx);
+	map->img_scen[1] = get_image("./assets/xpm/side_top.xpm", &size, mlx);
+	map->img_scen[2] = get_image("./assets/xpm/corner_tright.xpm", &size, mlx);
+	map->img_scen[3] = get_image("./assets/xpm/side_left.xpm", &size, mlx);
+	map->img_scen[4] = get_image("./assets/xpm/tile.xpm", &size, mlx);
+	map->img_scen[5] = get_image("./assets/xpm/side_right.xpm", &size, mlx);
+	map->img_scen[6] = get_image("./assets/xpm/corner_dleft.xpm", &size, mlx);
+	map->img_scen[7] = get_image("./assets/xpm/side_down.xpm", &size, mlx);
+	map->img_scen[8] = get_image("./assets/xpm/corner_dright.xpm", &size, mlx);
 
 	int i = 0;
+	printf("---------------");
 	printf("[%2d] %p\n", i++, map->img_scen[0]);
 	printf("[%2d] %p\n", i++, map->img_scen[1]);
 	printf("[%2d] %p\n", i++, map->img_scen[2]);
@@ -43,6 +49,7 @@ void	map_setup_images(t_map *map, void *mlx)
 	printf("[%2d] %p\n", i++, map->img_scen[6]);
 	printf("[%2d] %p\n", i++, map->img_scen[7]);
 	printf("[%2d] %p\n", i++, map->img_scen[8]);
+	printf("---------------");
 }
 
 t_map	*init_map(void *mlx)
@@ -59,11 +66,6 @@ t_map	*init_map(void *mlx)
 	map->n_obstacles = 0;
 	map->n_exits = 0;
 	map->player_pos = 0;
-	map->enemies = NULL;
-	map->obstacles = NULL;
-	map->collectibles = NULL;
-	map->colls_picked = NULL;
-	map->exits = NULL;
 	map_setup_images(map, mlx);
 	return (map);
 }
@@ -92,7 +94,6 @@ t_map	*parse_map(char *file_path, void *mlx)
 		clean_exit("Error\n-> Not enough elements to play this map.", map);
 	if (map->n_players != 1)
 		clean_exit("Error\n-> Too many players!", map);
-	get_map_positions(file_path, map);
 	return (map);
 }
 
@@ -141,58 +142,6 @@ void	is_valid_map_line(char *line, int l_len, t_map *map)
 			free(line);
 			clean_exit("Error\n-> Found invalid character on map file.", map);
 		}
-		i++;
-	}
-}
-
-void	get_map_positions(char *file_path, t_map *map)
-{
-	int		fd;
-	char	*line;
-	int		line_number;
-
-	fd = open(file_path, O_RDONLY);
-	map->n_obstacles -= (((map->m_width - 1) * 2) + ((map->m_heigth - 2) * 2));
-	map->enemies = ft_calloc(map->n_enemies, sizeof(int));
-	map->obstacles = ft_calloc(map->n_obstacles, sizeof(int));
-	map->collectibles = ft_calloc(map->n_collectibles, sizeof(int));
-	map->colls_picked = ft_calloc(map->n_collectibles, sizeof(int));
-	map->exits = ft_calloc(map->n_exits, sizeof(int));
-	line = get_next_line(fd);
-	line_number = 0;
-	while (line != NULL)
-	{
-		get_positions_from_line(line, map, line_number);
-		free(line);
-		line = get_next_line(fd);
-		line_number++;
-	}
-	close(fd);
-}
-
-void	get_positions_from_line(char *line, t_map *map, int l_num)
-{
-	static int	idx_enemies;
-	static int	idx_obstacles;
-	static int	idx_collectibles;
-	static int	idx_exits;
-	int			i;
-
-	if (l_num == 0 || l_num == (map->m_heigth - 1))
-		return ;
-	i = 1;
-	while (line[i] != '\0')
-	{
-		if (line[i] == 'P')
-			map->player_pos = (map->m_width * l_num) + i;
-		if (line[i] == '1' && (line[i + 1] != '\n' && line[i + 1] != '\0'))
-			map->obstacles[idx_obstacles++] = (map->m_width * l_num) + i;
-		if (line[i] == 'C')
-			map->collectibles[idx_collectibles++] = (map->m_width * l_num) + i;
-		if (line[i] == 'E')
-			map->exits[idx_exits++] = (map->m_width * l_num) + i;
-		if (line[i] == 'M')
-			map->enemies[idx_enemies++] = (map->m_width * l_num) + i;
 		i++;
 	}
 }
