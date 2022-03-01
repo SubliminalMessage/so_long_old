@@ -22,11 +22,18 @@ typedef struct  s_map
     int *collectibles;
     int *colls_picked;
     int *exits;
+    void *img_scen[9];
+    void *img_rock[1];
+    void *img_coll[2];
+    void *img_exit[2];
+    void *img_enem[4];
+    void *img_play[2];
+
 }   t_map;
 
 void	clean_exit(char *error, t_map *map);
-t_map   *init_map(void);
-t_map   *parse_map(char *file_path);
+t_map   *init_map(void *mlx);
+t_map   *parse_map(char *file_path, void *mlx);
 void    map_info_from_line(char *line, t_map *map);
 void	is_valid_map_line(char *line, int l_len, t_map *map);
 void    get_map_positions(char *file_path, t_map *map);

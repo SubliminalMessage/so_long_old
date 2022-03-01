@@ -6,6 +6,8 @@ CC	= gcc
 CFLAGS	= -Wall -Werror -Wextra #-g3 -fsanitize=address
 MLX_FLAGS = $(MLX) -framework OpenGL -framework AppKit
 
+MLX = mlx/libmlx.a
+
 ### ---   ---   ---         ---   ---   --- ###
 #               PROJECT PATHS                 #
 ### ---   ---   ---         ---   ---   --- ###
@@ -20,7 +22,6 @@ LIBFT_PATH			= libft/
 ### ---   ---   ---         ---   ---   --- ###
 
 NAME		= so_long
-MLX			= libmlx.dylib
 LIBFT		= $(LIBFT_PATH)/libft.a
 
 SRCS		=	main.c	\
@@ -54,7 +55,6 @@ $(NAME): $(MLX) $(LIBFT) $(OBJS)
 $(MLX):
 	@echo $(PURPLE)"[Make MLX]"$(WHITE)
 	@make -C mlx/
-	@cp mlx/$(MLX) ./
 
 $(LIBFT):
 	@echo $(PURPLE)"[Make Libft]"$(WHITE)

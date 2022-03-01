@@ -5,14 +5,47 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/26 22:44:57 by dutch             #+#    #+#             */
-/*   Updated: 2022/02/28 15:19:54 by dangonza         ###   ########.fr       */
+/*   Created: 2022/03/01 17:23:27 by dangonza          #+#    #+#             */
+/*   Updated: 2022/03/01 17:23:38 by dangonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include <so_long.h>
 
-t_map	*init_map(void)
+void	*get_image(char *str, int *size, void *mlx)
+{
+	return (mlx_xpm_file_to_image(mlx, str, size, size));
+}
+
+void	map_setup_images(t_map *map, void *mlx)
+{
+	int size;
+
+	size = 42;
+	map->img_scen[0] = get_image("./assets/corner_tleft.xpm", &size, mlx);
+	map->img_scen[1] = get_image("./assets/side_top.xpm", &size, mlx);
+	map->img_scen[2] = get_image("./assets/corner_tright.xpm", &size, mlx);
+	map->img_scen[3] = get_image("./assets/side_left.xpm", &size, mlx);
+	map->img_scen[4] = get_image("./assets/tile.xpm", &size, mlx);
+	map->img_scen[5] = get_image("./assets/side_right.xpm", &size, mlx);
+	map->img_scen[6] = get_image("./assets/corner_dleft.xpm", &size, mlx);
+	map->img_scen[7] = get_image("./assets/side_down.xpm", &size, mlx);
+	map->img_scen[8] = get_image("./assets/corner_dright.xpm", &size, mlx);
+
+	int i = 0;
+	printf("[%2d] %p\n", i++, map->img_scen[0]);
+	printf("[%2d] %p\n", i++, map->img_scen[1]);
+	printf("[%2d] %p\n", i++, map->img_scen[2]);
+	printf("[%2d] %p\n", i++, map->img_scen[3]);
+	printf("[%2d] %p\n", i++, map->img_scen[4]);
+	printf("[%2d] %p\n", i++, map->img_scen[5]);
+	printf("[%2d] %p\n", i++, map->img_scen[6]);
+	printf("[%2d] %p\n", i++, map->img_scen[7]);
+	printf("[%2d] %p\n", i++, map->img_scen[8]);
+}
+
+t_map	*init_map(void *mlx)
 {
 	t_map	*map;
 
@@ -31,10 +64,11 @@ t_map	*init_map(void)
 	map->collectibles = NULL;
 	map->colls_picked = NULL;
 	map->exits = NULL;
+	map_setup_images(map, mlx);
 	return (map);
 }
 
-t_map	*parse_map(char *file_path)
+t_map	*parse_map(char *file_path, void *mlx)
 {
 	int		fd;
 	char	*line;
@@ -42,7 +76,7 @@ t_map	*parse_map(char *file_path)
 
 	fd = open(file_path, O_RDONLY);
 	line = get_next_line(fd);
-	map = init_map();
+	map = init_map(mlx);
 	if (line == NULL)
 		clean_exit("Error\n-> Map is empty or cannot be opened.", map);
 	map->m_width = ft_strlen(line);
