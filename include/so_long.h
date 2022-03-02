@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/02 13:18:36 by dangonza          #+#    #+#             */
+/*   Updated: 2022/03/02 14:57:19 by dangonza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -6,33 +18,15 @@
 # include <libft.h>
 # include <fcntl.h>
 
-typedef struct  s_map
-{
-    int m_width;
-    int m_heigth;
-    int n_players;
-    int n_enemies;
-    int n_collectibles;
-    int n_collects_picked;
-    int n_obstacles;
-    int n_exits;
-    int player_pos;
-    void *img_scen[9];
-    void *img_rock[1];
-    void *img_coll[2];
-    void *img_exit[2];
-    void *img_enem[4];
-    void *img_play[2];
+typedef struct s_map {
+	int		width;
+	int		heigth;
+	void	*mlx;
+	void	*win;
+	void	*imgs[21];
+	int		buttons;
+}	t_map;
 
-}   t_map;
-
-void print_map_borders(t_map *map,  void *m, void *v);
-void	clean_exit(char *error, t_map *map);
-t_map   *init_map(void *mlx);
-t_map   *parse_map(char *file_path, void *mlx);
-void    map_info_from_line(char *line, t_map *map);
-void	is_valid_map_line(char *line, int l_len, t_map *map);
-void    get_map_positions(char *file_path, t_map *map);
-void    get_positions_from_line(char *line, t_map *map, int line_number);
-
+void	clean_exit(char *msg, void *ptr_free);
+t_map	*check_map_errors(char *path);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dutch <dutch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:23:27 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/02 00:06:28 by dutch            ###   ########.fr       */
+/*   Updated: 2022/03/02 13:13:44 by dangonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,6 @@ t_map	*init_map(void *mlx)
 	map = malloc(sizeof(t_map));
 	map->m_width = 0;
 	map->m_heigth = 0;
-	map->n_players = 0;
-	map->n_enemies = 0;
-	map->n_collectibles = 0;
-	map->n_collects_picked = 0;
-	map->n_obstacles = 0;
-	map->n_exits = 0;
-	map->player_pos = 0;
 	map_setup_images(map, mlx);
 	return (map);
 }
@@ -97,24 +90,26 @@ t_map	*parse_map(char *file_path, void *mlx)
 	return (map);
 }
 
+//  [obstacles, collectibles, exits, enemies, players]
 void	map_info_from_line(char *line, t_map *map)
 {
 	int	i;
+	static int data[5];
 
 	i = -1;
 	is_valid_map_line(line, ft_strlen(line), map);
 	while (*(line + (++i)) != '\0')
 	{
 		if (*(line + i) == '1')
-			map->n_obstacles++;
+			data[0]++;
 		if (*(line + i) == 'C')
-			map->n_collectibles++;
+			data[1]++;
 		if (*(line + i) == 'E')
-			map->n_exits++;
-		if (*(line + i) == 'P')
-			map->n_players++;
+			data[2]++;
 		if (*(line + i) == 'M')
-			map->n_enemies++;
+			data[3]++;
+		if (*(line + i) == 'P')
+			data[4]++;
 	}
 }
 
