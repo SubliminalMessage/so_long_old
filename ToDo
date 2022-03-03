@@ -1,16 +1,28 @@
-try to create the scenario
-
-
-
-+-------+
-| DONE  |
---------+
-
-Fix Leaks (idk where)
-Try what happens if you overlap two sprites <- Works fine with overlapping
-convert malloc() into ft_calloc() on map arrays, to ensure random memory doesn't fuck everything
-Start creating window and shit
-
-
-
-
+[X] Check Map Errors
+[X] Leaks generated after checking map Errors
+[ ] Generate & Store MLX pointer
+[ ] Generate & Store MLX_WIN pointer
+[ ] Create a window with correct size
+[ ] Store all images
+[ ] Check (and correct if any) leaks after storing images, MLX & MLX_WIN
+[ ] Print border background on window
+[ ] Print map scenario tiles
+[ ] Print map obstacles (rocks)
+[ ] Print map collectibles (buttons)
+[ ] Print map exits (trapdoors)
+[ ] Print player
+[ ] Handle movement
+[ ] Handle EXIT button on window
+[ ] Get & update movement counter
+[ ] Stop player from running into scenario obstacles
+[ ] Update buttons' state
+[ ] Update trapdoor' state
+[ ] Make player win if touches trapdor
+[ ] Print map enemies
+[ ] Move enemies
+[ ] Make payer lose if touches enemy
+[ ] Animate player
+[ ] Animate enemies
+[ ] Create extra border-bottom to print movement count on screen
+[ ] Print movement count on screen & update value
+[ ] Generate multiple maps & try to render them correctly

@@ -6,7 +6,7 @@
 /*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 10:23:04 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/02 13:15:54 by dangonza         ###   ########.fr       */
+/*   Updated: 2022/03/03 16:51:46 by dangonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	ft_strlen(const char *s)
 	if (s == NULL)
 		return (0);
 	i = 0;
-	while (*(s + i) && *(s + i) != '\n')
+	while (*(s + i))
 		i++;
 	return (i);
 }
