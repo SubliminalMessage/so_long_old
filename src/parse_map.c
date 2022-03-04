@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dutch <dutch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:59:24 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/03 18:42:15 by dangonza         ###   ########.fr       */
+/*   Updated: 2022/03/04 14:01:54 by dutch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	parse_map(t_map *map, char *path)
 	line = get_next_line(fd);
 	if (line == NULL)
 		clean_exit("Error\n-> Map is empty or cannot be opened.", map);
-	map->at = malloc(sizeof(char *) * (map->heigth - 1));
+	map->at = malloc(sizeof(char *) * (map->heigth));
 	i = -1;
 	while (++i < map->heigth)
 	{
-		map->at[i] = malloc(sizeof(char) * (map->width - 1));
+		map->at[i] = malloc(sizeof(char) * (map->width));
 		j = -1;
 		while (++j < map->width)
 			map->at[i][j] = *(line + j);

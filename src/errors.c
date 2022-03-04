@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dutch <dutch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:23:02 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/03 18:55:15 by dangonza         ###   ########.fr       */
+/*   Updated: 2022/03/04 16:21:07 by dutch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,47 @@ void	clean_exit(char *msg, t_map *map)
 {
 	int	i;
 
-	printf("%s\n", msg);
+	if (msg != NULL)
+		printf("%s\n", msg);
 	if (map != NULL)
 	{
 		i = -1;
 		if (map->at != NULL)
 		{
 			while (++i < map->heigth)
+			{
+				printf("Freed [%d]\n", i);
 				free(map->at[i]);
+			}
 			free(map->at);
 		}
+		if (map->p_enemy != NULL)
+			free(map->p_enemy);
+		i = -1;
+		while (++i <= 20 && map->imgs[i] != NULL)
+			mlx_destroy_image(map->mlx, map->imgs[i]);
+		if (map->win != NULL)
+			mlx_destroy_window(map->mlx, map->win);
+		if (map->mlx != NULL)
+		mlx_del(map->mlx);
 		free(map);
 	}
 	exit(0);
+}
+
+t_map	*init_map(void)
+{
+	int	i;
+
+	t_map *map = malloc(sizeof(t_map));
+	map->mlx = NULL;
+	map->win = NULL;
+	map->at = NULL;
+	i = -1;
+	while (++i <= 20)
+		map->imgs[i] = NULL;
+	map->p_enemy = NULL;
+	return (map);
 }
 
 //  [obstacles, collectibles, exits, enemies, players]
@@ -41,7 +69,7 @@ t_map	*check_map_errors(char *path)
 
 	fd = open(path, O_RDONLY);
 	line = get_next_line(fd);
-	map = malloc(sizeof(t_map));
+	map = init_map();
 	if (line == NULL)
 		clean_exit("Error\n-> Map is empty or cannot be opened.", map);
 	map->width = ft_line_len(line);
@@ -63,6 +91,7 @@ t_map	*check_map_errors(char *path)
 
 void	check_errors_map_line(char *line, int data[5], t_map *map)
 {
+	static int l_indx;
 	int	i;
 
 	i = -1;
@@ -78,8 +107,15 @@ void	check_errors_map_line(char *line, int data[5], t_map *map)
 		if (*(line + i) == 'M')
 			data[3]++;
 		if (*(line + i) == 'P')
+		{
 			data[4]++;
+			map->p_pos = l_indx * map->width + i;
+			printf("PLAYER POS: %d -> [%d][%d]\n", map->p_pos, map->p_pos / map->width, map->p_pos % map->width);
+		}
 	}
+	map->c_buttons = data[1];
+	map->c_enemies = data[3];
+	l_indx++;
 }
 
 void	is_valid_map_line(char *line, int l_len, t_map *map)

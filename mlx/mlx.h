@@ -46,6 +46,10 @@
 
 #define	MLX_H
 
+void	mlx_del(void *mlx_ptr);
+/*
+ *	correctly frees a mlx pointer
+ */
 
 void	*mlx_init();
 /*

@@ -26,7 +26,9 @@ LIBFT		= $(LIBFT_PATH)/libft.a
 
 SRCS		=	main.c \
 				errors.c \
-				parse_map.c
+				parse_map.c \
+				config_map.c \
+				map_scenario.c \
 
 OBJS = $(SRCS:%.c=bin/%.o)
 
