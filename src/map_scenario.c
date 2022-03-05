@@ -1,24 +1,49 @@
 #include <so_long.h>
 
-void    print_background(t_map *map)
+void    print_background(t_map *m)
 {
     int i;
     int j;
 
     i = 0;
-    while (i < map->width)
+    while (i < m->width)
     {
         j = 0;
-        while (j < map->heigth + 1)
+        while (j < m->heigth + 1)
         {
-            print_img(map, 0, i * 42, j * 42);
+            print_img(m, 0, i * 42, j * 42);
             j++;
         }
         i++;
     }
+    print_borders(m);
+    print_scenario(m, 0);
+    m->at[m->p_pos/ m->width][m->p_pos % m->width] = '0';
+    i = -1;
+    while (++i < m->c_enemies)
+    {
+        printf("Enemy at %d\n", m->p_enemy[i]);
+        m->at[m->p_enemy[i] / m->width][m->p_enemy[i] % m->width] = '0';
+    }
+    print_entities(m);
+}
 
-    print_borders(map);
-    print_scenario(map, 0);
+void    print_entities(t_map *map)
+{
+    int i;
+    int j;
+    int k;
+
+    i = map->p_pos / map->width;
+    j = map->p_pos % map->width;
+    print_img(map, 15, j * 42, i * 42);
+    k = -1;
+    while (++k < map->c_enemies)
+    {
+        i = map->p_enemy[k] / map->width;
+        j = map->p_enemy[k] % map->width;
+        print_img(map, 17, j * 42, i * 42);
+    }
 }
 
 void    print_borders(t_map *map)
@@ -41,6 +66,7 @@ void    print_borders(t_map *map)
     print_img(map, 3, (map->width - 1) * 42, 0);
     print_img(map, 7, 0,  (map->heigth - 1) * 42);
     print_img(map, 9, (map->width - 1) * 42, (map->heigth - 1) * 42);
+    //print_current_moves(map);
 }
 
 void    print_scenario(t_map *map, int e_idx)
@@ -49,28 +75,21 @@ void    print_scenario(t_map *map, int e_idx)
     int j;
 
     i = 0;
-    while (++i < (map->width - 1))
+    while (++i < (map->heigth - 1))
     {
         j = 0;
-        while (++j < (map->heigth - 1))
+        while (++j < (map->width - 1))
         {
-            print_img(map, 5, i * 42, j * 42);
-            if (map->at[j][i] == '1')
-                print_img(map, 10, i * 42, j * 42);
-            if (map->at[j][i] == 'E')
-                print_img(map, 13, i * 42, j * 42);
-            if (map->at[j][i] == 'C')
-                print_img(map, 11, i * 42, j * 42);
-            if (map->at[j][i] == 'P')
-                print_img(map, 15, i * 42, j * 42);
-            if (map->at[j][i] == 'M')
-                print_img(map, 17, i * 42, j * 42);
-            if (map->at[j][i] == 'M')
+            print_img(map, 5, j * 42, i * 42);
+            if (map->at[i][j] == '1')
+                print_img(map, 10, j * 42, i * 42);
+            if (map->at[i][j] == 'E')
+                print_img(map, 13, j * 42, i * 42);
+            if (map->at[i][j] == 'C')
+                print_img(map, 11, j * 42, i * 42);
+            if (map->at[i][j] == 'M')
                 map->p_enemy[e_idx++] = i * map->width + j;
         }
     }
 
-    i = -1;
-    while (++i < map->c_enemies)
-        printf("ENEMY POS %d =>[%d][%d]\n", map->p_enemy[i], map->p_enemy[i] / map->width, map->p_enemy[i] % map->width);
 }

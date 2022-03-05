@@ -6,7 +6,7 @@
 /*   By: dutch <dutch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:17:33 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/04 16:33:54 by dutch            ###   ########.fr       */
+/*   Updated: 2022/03/04 23:55:08 by dutch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,6 @@ void	leaks(void)
 {
 	system("leaks so_long");
 }
-
-int	handle_key(int key, t_map *map)
-{
-	if (key == 13)
-		printf("W\n");
-	if (key == 0)
-		printf("A\n");
-	if (key == 1)
-		printf("S\n");
-	if (key == 2)
-		printf("D\n");
-	if (key == 53)
-		clean_exit(NULL, map);
-	return (0);
-}
-
-// Return value useless, just to mute 'unused variable' warnings
-int	window_close(int idk, t_map *map)
-{
-	exit(0);
-	return (map->c_buttons + idk);
-}
-
-// ESC: 53
-//  W: 13
-//  A: 0
-//  S: 1
-//  D: 2
 
 int	main(int argc, char **argv)
 {
@@ -59,13 +31,13 @@ int	main(int argc, char **argv)
 	set_map_config(map);
 
 	print_background(map);
-	printf("Everything OK\n");
-	printf(">> %p <<\n", map);
+	print_current_moves(map);
+
 	mlx_key_hook(map->win, handle_key, map);
 	mlx_hook(map->win, 17, 1L < 17, window_close, map);
 	mlx_loop(map->mlx);
 
-	clean_exit(NULL, map);
+	//clean_exit(NULL, map);
 	return (0);
 }
 

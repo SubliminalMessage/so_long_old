@@ -6,7 +6,7 @@
 /*   By: dutch <dutch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:23:02 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/04 16:21:07 by dutch            ###   ########.fr       */
+/*   Updated: 2022/03/05 13:48:16 by dutch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	clean_exit(char *msg, t_map *map)
 {
+	//exit(0); //Remove this
+	printf("Exited");
 	int	i;
 
 	if (msg != NULL)
@@ -24,10 +26,7 @@ void	clean_exit(char *msg, t_map *map)
 		if (map->at != NULL)
 		{
 			while (++i < map->heigth)
-			{
-				printf("Freed [%d]\n", i);
 				free(map->at[i]);
-			}
 			free(map->at);
 		}
 		if (map->p_enemy != NULL)
@@ -52,6 +51,7 @@ t_map	*init_map(void)
 	map->mlx = NULL;
 	map->win = NULL;
 	map->at = NULL;
+	map->next_frame = 0;
 	i = -1;
 	while (++i <= 20)
 		map->imgs[i] = NULL;
@@ -110,7 +110,7 @@ void	check_errors_map_line(char *line, int data[5], t_map *map)
 		{
 			data[4]++;
 			map->p_pos = l_indx * map->width + i;
-			printf("PLAYER POS: %d -> [%d][%d]\n", map->p_pos, map->p_pos / map->width, map->p_pos % map->width);
+			//printf("PLAYER POS: %d -> [%d][%d]\n", map->p_pos, map->p_pos / map->width, map->p_pos % map->width);
 		}
 	}
 	map->c_buttons = data[1];

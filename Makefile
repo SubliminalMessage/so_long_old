@@ -7,6 +7,8 @@ CFLAGS	= -Wall -Werror -Wextra #-g3 -fsanitize=address
 MLX_FLAGS = $(MLX) -framework OpenGL -framework AppKit
 
 MLX = mlx/libmlx.a
+#DYLIB = libmlx.dylib
+#MLX = mlx/$(DYLIB)
 
 ### ---   ---   ---         ---   ---   --- ###
 #               PROJECT PATHS                 #
@@ -29,6 +31,8 @@ SRCS		=	main.c \
 				parse_map.c \
 				config_map.c \
 				map_scenario.c \
+				event_results.c \
+				movement.c 
 
 OBJS = $(SRCS:%.c=bin/%.o)
 
@@ -58,6 +62,7 @@ $(NAME): $(MLX) $(LIBFT) $(OBJS)
 $(MLX):
 	@echo $(PURPLE)"[Make MLX]"$(WHITE)
 	@make -C mlx/
+#cp $(MLX) ./
 
 $(LIBFT):
 	@echo $(PURPLE)"[Make Libft]"$(WHITE)
