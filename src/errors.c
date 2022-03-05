@@ -6,16 +6,15 @@
 /*   By: dutch <dutch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:23:02 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/05 13:48:16 by dutch            ###   ########.fr       */
+/*   Updated: 2022/03/05 16:59:11 by dutch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <so_long.h>
 
+// Prints an error message and exits the program in a clean way
 void	clean_exit(char *msg, t_map *map)
 {
-	//exit(0); //Remove this
-	printf("Exited");
 	int	i;
 
 	if (msg != NULL)
@@ -43,6 +42,7 @@ void	clean_exit(char *msg, t_map *map)
 	exit(0);
 }
 
+// Initializes an empty map struct
 t_map	*init_map(void)
 {
 	int	i;
@@ -52,6 +52,7 @@ t_map	*init_map(void)
 	map->win = NULL;
 	map->at = NULL;
 	map->next_frame = 0;
+	map->next_move = 0;
 	i = -1;
 	while (++i <= 20)
 		map->imgs[i] = NULL;
@@ -59,7 +60,8 @@ t_map	*init_map(void)
 	return (map);
 }
 
-//  [obstacles, collectibles, exits, enemies, players]
+// Checks the map file for errors
+//  data = [obstacles, collectibles, exits, enemies, players]
 t_map	*check_map_errors(char *path)
 {
 	int			fd;
@@ -89,6 +91,8 @@ t_map	*check_map_errors(char *path)
 	return (map);
 }
 
+// Checks a single map line for errors
+//  data = [obstacles, collectibles, exits, enemies, players]
 void	check_errors_map_line(char *line, int data[5], t_map *map)
 {
 	static int l_indx;
@@ -110,7 +114,6 @@ void	check_errors_map_line(char *line, int data[5], t_map *map)
 		{
 			data[4]++;
 			map->p_pos = l_indx * map->width + i;
-			//printf("PLAYER POS: %d -> [%d][%d]\n", map->p_pos, map->p_pos / map->width, map->p_pos % map->width);
 		}
 	}
 	map->c_buttons = data[1];
@@ -118,6 +121,7 @@ void	check_errors_map_line(char *line, int data[5], t_map *map)
 	l_indx++;
 }
 
+// Checks if a given line is valid. Exits the program if it's not.
 void	is_valid_map_line(char *line, int l_len, t_map *map)
 {
 	int		i;

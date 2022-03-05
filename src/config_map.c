@@ -1,5 +1,6 @@
 #include <so_long.h>
 
+// Given a map struct, initializes pointers & images
 void	set_map_config(t_map *map)
 {
 	set_pointers(map);
@@ -7,6 +8,7 @@ void	set_map_config(t_map *map)
 	map->p_enemy = malloc(sizeof(int) * (map->c_enemies));
 }
 
+// Given a map struct, initializes MLX pointers
 void    set_pointers(t_map *map)
 {
     int		w;
@@ -20,6 +22,7 @@ void    set_pointers(t_map *map)
 	map->win = mlx_new_window(map->mlx, w, h, title);
 }
 
+// Given a map struct, initalizes MLX images' pointers
 void	set_images(t_map *map)
 {
 	map->imgs[0] = get_img("./assets/xpm/background.xpm", map); // Background
@@ -45,6 +48,7 @@ void	set_images(t_map *map)
 	map->imgs[20] = get_img("./assets/xpm/enemy_04.xpm", map);
 }
 
+// Given a file path, return (void *) pointing to that image
 void	*get_img(char *path, t_map *map)
 {
 	int		size;
@@ -53,10 +57,11 @@ void	*get_img(char *path, t_map *map)
 	size = 42;
 	img = mlx_xpm_file_to_image(map->mlx, path, &size, &size);
 	if (img == NULL)
-		clean_exit("Error\n-> File path not found.", map);
+		clean_exit("Error\n-> Error encountered reading image file", map);
 	return (img);
 }
 
+// Given an image index and its position, prints the image into the window.
 void	print_img(t_map *map, int index, int x, int y)
 {
 	mlx_put_image_to_window(map->mlx, map->win, map->imgs[index], x, y);

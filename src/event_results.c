@@ -1,5 +1,6 @@
 #include <so_long.h>
 
+// Everytime you press a key, this function handles it
 // ESC: 53
 //  W: 13
 //  A: 0
@@ -7,8 +8,6 @@
 //  D: 2
 int	handle_key(int key, t_map *map)
 {
-    //printf("Actual Pos: %d [%d][%d]\n", map->p_pos, map->p_pos / map->width, map->p_pos % map->width);
-    //printf("Key press (%d)\n", key);
 	if (key == 13)
 		player_move('w', map);
 	if (key == 0)
@@ -22,6 +21,7 @@ int	handle_key(int key, t_map *map)
 	return (0);
 }
 
+// Exits the program. Used when you close the window.
 // Return value useless, just to mute 'unused variable' warnings
 int	window_close(int idk, t_map *map)
 {

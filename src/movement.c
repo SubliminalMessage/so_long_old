@@ -3,13 +3,14 @@
 // id == 0 => Auto
 // id == 1 => Player
 // id == 2 => Enemy
+// Prints a single sprite on a given position. Used in animations
 void print_at(int position, t_map *map, int id)
 {
     int i;
     int j;
 
-    i = position / map->width; // Y
-    j = position % map->width; // X
+    i = position / map->width;
+    j = position % map->width;
     if (id == 1)
         print_img(map, 15 + map->next_frame % 2, j * 42, i * 42);
     if (id == 2)
@@ -28,16 +29,18 @@ void print_at(int position, t_map *map, int id)
     }
 }
 
-// w => Up
-// d => Right
-// s => Down
-// a => Left
+// Moves player in 'dir' direction.
+// dir == w -> Up
+// dir == d -> Right
+// dir == s -> Down
+// dir == a -> Left
 void    player_move(char dir, t_map *map)
 {
     int new_pos;
     int i;
     int j;
 
+    map->next_move = (map->next_move + 1) % 13 % 4;
     new_pos = map->p_pos;
     if (dir == 'w')
         new_pos -= map->width;
@@ -47,20 +50,20 @@ void    player_move(char dir, t_map *map)
         new_pos += map->width;
     if (dir == 'a')
         new_pos -= 1;
-
-    i = new_pos / map->width; // Y
-    j = new_pos % map->width; // X
-
-   // printf("Trying to move to [%d][%d] ('%c')\n", i, j, map->at[i][j]);
+    i = new_pos / map->width;
+    j = new_pos % map->width;
     if (map->at[i][j] == '1')
         return ;
     check_event_triggers(new_pos, map);
+    move_enemies(map);
+    check_event_triggers(new_pos, map);
     print_at(map->p_pos, map, 0);
-    print_at(new_pos, map, 1);
-    print_current_moves(map);
     map->p_pos = new_pos;
+    print_entities(map);
+    print_current_moves(map);
 }
 
+// Checks if the game should end (either by winning or by losing)
 void    check_event_triggers(int pos, t_map *map)
 {
     int i;
@@ -86,6 +89,7 @@ void    check_event_triggers(int pos, t_map *map)
     }
 }
 
+// Opens every map exit door, once you've pressed every button
 void    open_all_doors(t_map *map)
 {
     int i;
@@ -97,7 +101,6 @@ void    open_all_doors(t_map *map)
         j = -1;
         while (++j < map->width)
         {
-            //printf("Check! %d, %d\n", i, j);
             if (map->at[i][j] == 'E')
             {
                 map->at[i][j] = 'e';
@@ -107,6 +110,7 @@ void    open_all_doors(t_map *map)
     }
 }
 
+// Prints on screen current nº of moves
 void    print_current_moves(t_map *map)
 {
     static int moves = -1;
@@ -125,4 +129,28 @@ void    print_current_moves(t_map *map)
     free(itoa);
     free(text);
     (void) map;
+}
+
+// Moves every enemy (if any) in a 'circular' motion
+void    move_enemies(t_map *map)
+{
+    int i;
+    int j;
+    int k;
+
+    k = -1;
+    while (++k < map->c_enemies)
+    {
+        i = map->p_enemy[k] / map->width;
+        j = map->p_enemy[k] % map->width;
+        print_img(map, 5, j * 42, i * 42);
+        if (map->next_move == 0 && map->at[i - 1][j] == '0')
+            map->p_enemy[k] = (i - 1) * map->width + j;
+        if (map->next_move == 1 && map->at[i][j + 1] == '0')
+            map->p_enemy[k] = i * map->width + j + 1;
+        if (map->next_move == 2 && map->at[i + 1][j] == '0')
+            map->p_enemy[k] = (i + 1) * map->width + j;
+        if (map->next_move == 3 && map->at[i][j - 1] == '0')
+            map->p_enemy[k] = i * map->width + j - 1;
+    }
 }

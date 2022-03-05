@@ -13,16 +13,16 @@
 [X] Print player
 [X] Handle movement
 [X] Handle EXIT button on window
-[ ] Get & update movement counter
+[X] Get & update movement counter
 [X] Stop player from running into scenario obstacles
 [X] Update buttons' state
 [X] Update trapdoor' state
 [X] Make player win if touches trapdor
 [X] Print map enemies
-[ ] Move enemies
+[X] Move enemies
 [X] Make payer lose if touches enemy
-[ ] Animate player
-[ ] Animate enemies
+[X] Animate player
+[X] Animate enemies
 [X] Create extra border-bottom to print movement count on screen
-[ ] Print movement count on screen & update value
-[ ] Generate multiple maps & try to render them correctly
+[X] Print movement count on screen & update value
+[X] Generate multiple maps & try to render them correctly

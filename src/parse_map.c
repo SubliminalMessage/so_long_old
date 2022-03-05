@@ -6,12 +6,13 @@
 /*   By: dutch <dutch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:59:24 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/04 20:25:12 by dutch            ###   ########.fr       */
+/*   Updated: 2022/03/05 16:56:13 by dutch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <so_long.h>
 
+// Reads the map file, parses it and stores it into a map struct
 void	parse_map(t_map *map, char *path)
 {
 	int	fd;

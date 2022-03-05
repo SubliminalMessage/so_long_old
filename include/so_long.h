@@ -6,7 +6,7 @@
 /*   By: dutch <dutch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:18:36 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/04 21:56:50 by dutch            ###   ########.fr       */
+/*   Updated: 2022/03/05 16:20:29 by dutch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_map {
 	int		*p_enemy;
 	char	**at;
 	int		next_frame;
+	int		next_move;
 }	t_map;
 
 void	clean_exit(char *msg, t_map *map);
@@ -53,4 +54,7 @@ void    print_entities(t_map *map);
 void    open_all_doors(t_map *map);
 void    check_event_triggers(int pos, t_map *map);
 void    print_current_moves(t_map *map);
+int		animation_frames(t_map *map);
+
+void    move_enemies(t_map *map);
 #endif
