@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dutch <dutch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:23:02 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/05 16:59:11 by dutch            ###   ########.fr       */
+/*   Updated: 2022/03/07 14:29:09 by dangonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	clean_exit(char *msg, t_map *map)
 		if (map->win != NULL)
 			mlx_destroy_window(map->mlx, map->win);
 		if (map->mlx != NULL)
-		mlx_del(map->mlx);
+			mlx_del(map->mlx);
 		free(map);
 	}
 	exit(0);
@@ -45,9 +45,10 @@ void	clean_exit(char *msg, t_map *map)
 // Initializes an empty map struct
 t_map	*init_map(void)
 {
-	int	i;
+	int		i;
+	t_map	*map;
 
-	t_map *map = malloc(sizeof(t_map));
+	map = malloc(sizeof(t_map));
 	map->mlx = NULL;
 	map->win = NULL;
 	map->at = NULL;
@@ -95,8 +96,8 @@ t_map	*check_map_errors(char *path)
 //  data = [obstacles, collectibles, exits, enemies, players]
 void	check_errors_map_line(char *line, int data[5], t_map *map)
 {
-	static int l_indx;
-	int	i;
+	static int	l_indx;
+	int			i;
 
 	i = -1;
 	is_valid_map_line(line, ft_line_len(line), map);

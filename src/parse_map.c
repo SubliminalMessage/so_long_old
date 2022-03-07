@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dutch <dutch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:59:24 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/05 16:56:13 by dutch            ###   ########.fr       */
+/*   Updated: 2022/03/07 14:32:24 by dangonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 // Reads the map file, parses it and stores it into a map struct
 void	parse_map(t_map *map, char *path)
 {
-	int	fd;
-	char *line;
-	int	i;
-	int	j;
+	int		fd;
+	char	*line;
+	int		i;
+	int		j;
 
 	fd = open(path, O_RDONLY);
 	line = get_next_line(fd);
@@ -36,6 +36,14 @@ void	parse_map(t_map *map, char *path)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	check_parsed_map_errors(map);
+}
+
+void	check_parsed_map_errors(t_map *map)
+{
+	int	i;
+	int	j;
+
 	i = -1;
 	j = map->heigth - 1;
 	while (++i < map->width - 1)
