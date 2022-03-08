@@ -6,7 +6,7 @@
 /*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:18:36 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/07 14:33:16 by dangonza         ###   ########.fr       */
+/*   Updated: 2022/03/08 16:31:28 by dangonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ int		animation_frames(t_map *map);
 void	move_enemies(t_map *map);
 void	check_parsed_map_errors(t_map *map);
 void	print_at(int position, t_map *map, int id);
+int		calc_next_enemy_move(t_map *map, int i, int j, int k);
 
 #endif

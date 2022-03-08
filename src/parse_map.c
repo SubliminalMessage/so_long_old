@@ -6,7 +6,7 @@
 /*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:59:24 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/07 14:32:24 by dangonza         ###   ########.fr       */
+/*   Updated: 2022/03/08 16:31:31 by dangonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,17 @@ void	check_parsed_map_errors(t_map *map)
 		if (map->at[0][i] != '1' || map->at[j][i] != '1')
 			clean_exit("Error\n-> Map must be surrounded by walls.", map);
 	}
+}
+
+int	calc_next_enemy_move(t_map *map, int i, int j, int k)
+{
+	if (map->next_move == 0 && map->at[i - 1][j] == '0')
+		return ((i - 1) * map->width + j);
+	if (map->next_move == 1 && map->at[i][j + 1] == '0')
+		return (i * map->width + j + 1);
+	if (map->next_move == 2 && map->at[i + 1][j] == '0')
+		return ((i + 1) * map->width + j);
+	if (map->next_move == 3 && map->at[i][j - 1] == '0')
+		return (i * map->width + j - 1);
+	return (map->p_enemy[k]);
 }

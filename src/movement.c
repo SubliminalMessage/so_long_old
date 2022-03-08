@@ -6,7 +6,7 @@
 /*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:21:22 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/07 14:24:34 by dangonza         ###   ########.fr       */
+/*   Updated: 2022/03/08 16:31:56 by dangonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ void	move_enemies(t_map *map)
 	int		i;
 	int		j;
 	int		k;
+	int		next;
 
 	k = -1;
 	while (++k < map->c_enemies)
@@ -127,13 +128,18 @@ void	move_enemies(t_map *map)
 		i = map->p_enemy[k] / map->width;
 		j = map->p_enemy[k] % map->width;
 		print_img(map, 5, j * 42, i * 42);
-		if (map->next_move == 0 && map->at[i - 1][j] == '0')
-			map->p_enemy[k] = (i - 1) * map->width + j;
-		if (map->next_move == 1 && map->at[i][j + 1] == '0')
-			map->p_enemy[k] = i * map->width + j + 1;
-		if (map->next_move == 2 && map->at[i + 1][j] == '0')
-			map->p_enemy[k] = (i + 1) * map->width + j;
-		if (map->next_move == 3 && map->at[i][j - 1] == '0')
-			map->p_enemy[k] = i * map->width + j - 1;
+		next = calc_next_enemy_move(map, i, j, k);
+		j = -1;
+		while (++j < map->c_enemies)
+		{
+			if (map->p_enemy[j] == next)
+			{
+				j = -1;
+				break ;
+			}
+		}
+		if (j == -1)
+			continue ;
+		map->p_enemy[k] = next;
 	}
 }
