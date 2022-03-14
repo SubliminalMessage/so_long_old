@@ -64,7 +64,6 @@ $(NAME): $(MLX) $(LIBFT) $(OBJS)
 $(MLX):
 	@echo $(PURPLE)"[Make MLX]"$(WHITE)
 	@make -C mlx/
-#cp $(MLX) ./
 
 $(LIBFT):
 	@echo $(PURPLE)"[Make Libft]"$(WHITE)
@@ -72,11 +71,12 @@ $(LIBFT):
 
 bin/%.o: src/%.c
 	@echo $(BLUE)"[Compilation]"$(WHITE)": $< "
+	@mkdir  -p bin
 	$(CC) $(CFLAGS) -I $(INCS_PATH) -I $(LIBFT_PATH) -I mlx/ -c $< -o $@
 
 clean:
 	@echo $(RED)"[Deleting Object Files]"$(WHITE)
-	@rm -rf $(OBJS)
+	@rm -rf bin/
 	@echo $(RED)"[Deleting MLX Object Files]"$(WHITE)
 	@make clean -C mlx/
 	@echo $(RED)"[Deleting Libft Object Files]"$(WHITE)
