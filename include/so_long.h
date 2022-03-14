@@ -6,7 +6,7 @@
 /*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:18:36 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/08 16:31:28 by dangonza         ###   ########.fr       */
+/*   Updated: 2022/03/14 13:45:16 by dangonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <mlx.h>
 # include <libft.h>
 # include <fcntl.h>
+
+# define W_HEIGTH 2880
+# define W_WIDTH 5120
 
 typedef struct s_map {
 	int		width;

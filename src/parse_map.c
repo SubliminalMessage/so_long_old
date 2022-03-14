@@ -6,7 +6,7 @@
 /*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:59:24 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/08 16:31:31 by dangonza         ###   ########.fr       */
+/*   Updated: 2022/03/14 13:55:45 by dangonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	parse_map(t_map *map, char *path)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	if (map->width > (W_WIDTH / 84) || (map->heigth + 2) > (W_HEIGTH / 84))
+		clean_exit("Error\n-> Map is too big for this screen.", map);
 	check_parsed_map_errors(map);
 }
 

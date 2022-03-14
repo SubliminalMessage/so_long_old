@@ -6,6 +6,8 @@ CC	= gcc
 CFLAGS	= -Wall -Werror -Wextra #-g3 -fsanitize=address
 MLX_FLAGS = $(MLX) -framework OpenGL -framework AppKit
 
+# system_profiler SPDisplaysDataType | awk '/Resolution/{print $2, $3, $4}'system_profiler SPDisplaysDataType | awk '/Resolution/{print $2, $3, $4}'
+
 MLX = mlx/libmlx.a
 #DYLIB = libmlx.dylib
 #MLX = mlx/$(DYLIB)
