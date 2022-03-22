@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:18:36 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/22 17:44:19 by dangonza         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:49:58 by dangonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include <stdio.h>
 # include <mlx.h>
@@ -26,9 +26,11 @@ typedef struct s_map {
 	int		heigth;
 	void	*mlx;
 	void	*win;
-	void	*imgs[17];
+	void	*imgs[21];
 	int		c_buttons;
+	int		c_enemies;
 	int		p_pos;
+	int		*p_enemy;
 	char	**at;
 	int		next_frame;
 	int		next_move;
@@ -47,7 +49,7 @@ void	*get_img(char *path, t_map *map);
 void	print_img(t_map *map, int index, int x, int y);
 void	print_background(t_map *map);
 void	print_borders(t_map *map);
-void	print_scenario(t_map *map);
+void	print_scenario(t_map *map, int e_idx);
 void	player_move(char dir, t_map *map);
 int		handle_key(int key, t_map *map);
 int		window_close(int idk, t_map *map);

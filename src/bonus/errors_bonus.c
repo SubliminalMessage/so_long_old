@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   errors_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:23:02 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/07 14:29:09 by dangonza         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:40:52 by dangonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <so_long.h>
+#include <so_long_bonus.h>
 
 // Prints an error message and exits the program in a clean way
 void	clean_exit(char *msg, t_map *map)

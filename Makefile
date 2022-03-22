@@ -28,15 +28,24 @@ LIBFT_PATH			= libft/
 NAME		= so_long
 LIBFT		= $(LIBFT_PATH)/libft.a
 
-SRCS		=	main.c \
-				errors.c \
-				parse_map.c \
-				config_map.c \
-				map_scenario.c \
-				event_results.c \
-				movement.c 
+SRCS_MAND	=	mandatory/main.c \
+				mandatory/errors.c \
+				mandatory/parse_map.c \
+				mandatory/config_map.c \
+				mandatory/map_scenario.c \
+				mandatory/event_results.c \
+				mandatory/movement.c 
 
-OBJS = $(SRCS:%.c=bin/%.o)
+SRCS_BNS	=	bonus/main_bonus.c \
+				bonus/errors_bonus.c \
+				bonus/parse_map_bonus.c \
+				bonus/config_map_bonus.c \
+				bonus/map_scenario_bonus.c \
+				bonus/event_results_bonus.c \
+				bonus/movement_bonus.c 
+
+MANDATORY_OBJS = $(SRCS_MAND:%.c=bin/%.o)
+BONUS_OBJS = $(SRCS_BNS:%.c=bin/%.o)
 
 ### ---   ---   ---         ---   ---   --- ###
 #              COLORS & EXTRAS :)             #
@@ -57,21 +66,36 @@ BLUE	= '\033[1;34m'
 
 all: $(NAME)
 
-$(NAME): $(MLX) $(LIBFT) $(OBJS)
+$(NAME): $(MLX) $(LIBFT) $(MANDATORY_OBJS)
 	@echo $(PURPLE)"[Creating $(NAME) "$(PURPLE)"]"$(WHITE)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_FLAGS) -I $(INCS_PATH) -I $(LIBFT_PATH) -o $(NAME)
+	$(CC) $(CFLAGS) $(MANDATORY_OBJS) $(LIBFT) $(MLX_FLAGS) -I $(INCS_PATH) -I $(LIBFT_PATH) -o $(NAME)
 
 $(MLX):
 	@echo $(PURPLE)"[Make MLX]"$(WHITE)
 	@make -C mlx/
 
+bonus: .bonus
+
+.bonus: $(MLX) $(LIBFT) $(BONUS_OBJS)
+	@echo $(PURPLE)"[Creating $(NAME) "$(PURPLE)"]"$(WHITE)
+	@touch .bonus
+	@rm -f $(NAME)
+	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) $(MLX_FLAGS) -I $(INCS_PATH) -I $(LIBFT_PATH) -o $(NAME)
+
 $(LIBFT):
 	@echo $(PURPLE)"[Make Libft]"$(WHITE)
 	@make -C $(LIBFT_PATH)
 
-bin/%.o: src/%.c
+bin/mandatory/%.o: src/mandatory/%.c
+	@echo $(BLUE)"[Compilation]"$(WHITE)": $< "
+	@mkdir -p bin
+	@mkdir -p bin/mandatory
+	$(CC) $(CFLAGS) -I $(INCS_PATH) -I $(LIBFT_PATH) -I mlx/ -c $< -o $@
+
+bin/bonus/%.o: src/bonus/%.c
 	@echo $(BLUE)"[Compilation]"$(WHITE)": $< "
 	@mkdir  -p bin
+	@mkdir -p bin/bonus
 	$(CC) $(CFLAGS) -I $(INCS_PATH) -I $(LIBFT_PATH) -I mlx/ -c $< -o $@
 
 clean:
@@ -80,6 +104,7 @@ clean:
 	@echo $(RED)"[Deleting MLX Object Files]"$(WHITE)
 	@make clean -C mlx/
 	@echo $(RED)"[Deleting Libft Object Files]"$(WHITE)
+	@rm -f .bonus
 	@make clean -C $(LIBFT_PATH)
 
 fclean: clean 

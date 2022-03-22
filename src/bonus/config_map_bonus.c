@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   config_map.c                                       :+:      :+:    :+:   */
+/*   config_map_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:16:21 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/07 14:30:05 by dangonza         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:40:49 by dangonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <so_long.h>
+#include <so_long_bonus.h>
 
 // Given a map struct, initializes pointers & images
 void	set_map_config(t_map *map)

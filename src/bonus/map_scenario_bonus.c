@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_scenario.c                                     :+:      :+:    :+:   */
+/*   map_scenario_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:20:00 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/07 14:33:13 by dangonza         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:41:03 by dangonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <so_long.h>
+#include <so_long_bonus.h>
 
 // Prints the background of the image
 // It also calls the rest of print_something() functions

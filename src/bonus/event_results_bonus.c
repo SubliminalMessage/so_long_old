@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event_results.c                                    :+:      :+:    :+:   */
+/*   event_results_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dangonza <dangonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:17:37 by dangonza          #+#    #+#             */
-/*   Updated: 2022/03/07 14:30:14 by dangonza         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:40:55 by dangonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <so_long.h>
+#include <so_long_bonus.h>
 
 // Everytime you press a key, this function handles it
 // ESC: 53
